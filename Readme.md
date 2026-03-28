@@ -2,11 +2,17 @@
 
 ## Overview
 
-The proof of concept implements a fully seeded, deterministic coral reef simulation system built in Unity.  — a working pipeline from noise-generated terrain through to living, evolving coral agents — and prove that the system can behave in a biologically plausible way before any serious rendering or ML work begins. What exists now is a prototype that already does more than most procedural systems at this stage, while being honest about what is placeholder and what is production-ready.
+The proof of concept implements a fully seeded, deterministic coral reef simulation system built in Unity — a working pipeline from noise-generated terrain through to living, evolving coral agents — and prove that the system can behave in a biologically plausible way before any serious rendering or ML work begins.
+
+What exists now is a prototype that already does more than most procedural systems at this stage, while being honest about what is placeholder and what is production-ready.
+
+![Reef Overview](./images/reef_overview.png)
+
+---
 
 ## The Terrain Foundation
 
-The terrain pipeline follows the classic fractal Brownian motion approach — the same mathematical foundation I demonstrated in the entry task, now operating inside Unity on a 241×241 mesh chunk.
+The terrain pipeline follows the classic fractal Brownian motion approach — the same mathematical foundation demonstrated in the entry task, now operating inside Unity on a 241×241 mesh chunk.
 
 The choice of 241 is deliberate: it is a value that divides cleanly for LOD simplification without hitting Unity's mesh vertex limit.
 
@@ -17,6 +23,10 @@ The heightmap drives a mesh through MeshGenerator.cs, where each vertex's Y posi
 This non-linear shaping is important — it lets you flatten the abyssal plains while sharpening the reef ridges, mimicking how real reefs rise steeply from a sandy basin.
 
 LOD is already wired in, with mesh simplification incrementing based on distance, even though the system currently generates a single fixed chunk. That LOD infrastructure is the hook for the streaming world expansion later.
+
+![Terrain Generation](./images/terrain_generation.png)
+
+---
 
 ## The Coral Placement System — What It Does Now
 
@@ -47,6 +57,10 @@ The visual representation is a stand-in.
 This was an intentional decision: getting the simulation correct matters far more at this stage than getting the visuals right.
 
 You cannot retrofit biologically plausible behavior onto pretty meshes after the fact, but you absolutely can swap placeholder geometry for Blender-authored coral models once the system underneath is solid.
+
+![Coral Placement Settings](./images/coral_placement.png)
+
+---
 
 ## The Coral Agent Simulation — Rule-Based Ecosystem Intelligence
 
@@ -80,6 +94,10 @@ These blooms cause population spikes followed by competition pressure, which the
 
 The system cycles through this naturally without any explicit scripting of the cycle — it emerges from the rules.
 
+![Simulation View](./images/simulation_view.png)
+
+---
+
 ## Environmental Motion and Camera
 
 UnderwaterParticles.cs configures a particle system for ambient underwater atmosphere — bubbles and sediment drifting upward with gentle noise-based sway.
@@ -90,13 +108,13 @@ This is entirely visual scaffolding at this stage, but it establishes the right 
 
 ReefCinematicCamera.cs is a five-phase sequenced camera that pans across the seabed, rises to reveal the full reef, orbits wide, moves in for coral close-ups, and pulls back for a final establishing shot.
 
-This exists for demonstration and recording purposes — it is how you show the system to a reviewer or generate footage for a project demo without manually navigating a free camera.
+---
 
 ## Where the Prototype Ends and the Full System Begins
 
 The current system is a single 241×241 fixed chunk.
 
-There is no infinite world, no chunk streaming, no Job System or Burst Compiler, no Compute Shaders.
+There is   no chunk streaming, no Job System or Burst Compiler, no Compute Shaders.
 
 The rendering is a basic URP mesh with a sand material.
 
@@ -106,11 +124,11 @@ The coral objects are placeholders, not authored assets.
 
 The AI layer is entirely rule-based — there are no ML models yet.
 
-These are not failures.
-
-They are the correct scope for a proof of concept.
+These are not failures. They are the correct scope for a proof of concept.
 
 The architecture was designed with every one of these expansions in mind.
+
+---
 
 ## Expansion Path
 
