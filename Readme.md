@@ -1,8 +1,10 @@
- Overview
+# Coral Reef Simulation — Proof of Concept
 
-The proof of concept implements a fully seeded, deterministic coral reef simulation system built in Unity. — a working pipeline from noise-generated terrain through to living, evolving coral agents — and prove that the system can behave in a biologically plausible way before any serious rendering or ML work begins. What exists now is a prototype that already does more than most procedural systems at this stage, while being honest about what is placeholder and what is production-ready.
+## Overview
 
- The Terrain Foundation
+The proof of concept implements a fully seeded, deterministic coral reef simulation system built in Unity.  — a working pipeline from noise-generated terrain through to living, evolving coral agents — and prove that the system can behave in a biologically plausible way before any serious rendering or ML work begins. What exists now is a prototype that already does more than most procedural systems at this stage, while being honest about what is placeholder and what is production-ready.
+
+## The Terrain Foundation
 
 The terrain pipeline follows the classic fractal Brownian motion approach — the same mathematical foundation I demonstrated in the entry task, now operating inside Unity on a 241×241 mesh chunk.
 
@@ -16,7 +18,7 @@ This non-linear shaping is important — it lets you flatten the abyssal plains 
 
 LOD is already wired in, with mesh simplification incrementing based on distance, even though the system currently generates a single fixed chunk. That LOD infrastructure is the hook for the streaming world expansion later.
 
- The Coral Placement System — What It Does Now
+## The Coral Placement System — What It Does Now
 
 The coral placement logic in CoralEcosystem.cs is the most sophisticated part of the current prototype, and it is worth being specific about how it works because it already goes well beyond naive random scattering.
 
@@ -46,7 +48,7 @@ This was an intentional decision: getting the simulation correct matters far mor
 
 You cannot retrofit biologically plausible behavior onto pretty meshes after the fact, but you absolutely can swap placeholder geometry for Blender-authored coral models once the system underneath is solid.
 
- The Coral Agent Simulation — Rule-Based Ecosystem Intelligence
+## The Coral Agent Simulation — Rule-Based Ecosystem Intelligence
 
 Each spawned coral is not a static object.
 
@@ -78,7 +80,7 @@ These blooms cause population spikes followed by competition pressure, which the
 
 The system cycles through this naturally without any explicit scripting of the cycle — it emerges from the rules.
 
- Environmental Motion and Camera
+## Environmental Motion and Camera
 
 UnderwaterParticles.cs configures a particle system for ambient underwater atmosphere — bubbles and sediment drifting upward with gentle noise-based sway.
 
@@ -90,7 +92,7 @@ ReefCinematicCamera.cs is a five-phase sequenced camera that pans across the sea
 
 This exists for demonstration and recording purposes — it is how you show the system to a reviewer or generate footage for a project demo without manually navigating a free camera.
 
- Where the Prototype Ends and the Full System Begins
+## Where the Prototype Ends and the Full System Begins
 
 The current system is a single 241×241 fixed chunk.
 
@@ -110,10 +112,11 @@ They are the correct scope for a proof of concept.
 
 The architecture was designed with every one of these expansions in mind.
 
- Expansion Path
- Streaming 
+## Expansion Path
 
-The 241×241 chunk size and the existing LOD infrastructure are the exact primitives needed for a chunked  world.
+### Streaming and infinite world
+
+The 241×241 chunk size and the existing LOD infrastructure are the exact primitives needed for a chunked infinite world.
 
 The noise generator is already offset-aware, meaning you can request any region of the infinite noise field by passing a world-space offset.
 
@@ -121,7 +124,7 @@ Streaming means generating chunks on a background thread as the user moves, main
 
 The seeded determinism means unloaded chunks can be regenerated identically on demand — you never need to store terrain data persistently.
 
- Authored coral models
+### Authored coral models
 
 The agent system places, scales, rotates, and manages the lifecycle of coral objects without caring what those objects look like.
 
@@ -131,7 +134,7 @@ The simulation does not change.
 
 This is the correct separation of concerns — behavior is decoupled from representation.
 
- Procedural coral geometry
+### Procedural coral geometry
 
 Beyond static authored models, the full system will generate coral geometry procedurally using L-systems or space colonization algorithms driven by the agent's type and age parameters.
 
@@ -141,13 +144,13 @@ Over simulation time it forks, grows secondary branches, develops the characteri
 
 The geometry changes as the agent ages, making growth visible rather than just a scale change on a static mesh.
 
- Custom rendering
+### Custom rendering
 
 The full system needs a proper underwater visual stack: a water surface shader with refraction and reflection, caustic light projection onto the seabed, volumetric scattering for the characteristic blue-green underwater depth fog, and screen-space effects that shift color temperature with depth.
 
 None of this changes the simulation — it is a rendering layer that sits on top of the existing architecture.
 
- ML integration
+### ML integration
 
 The rule-based simulation is already producing biologically plausible behavior through hand-tuned parameters.
 
@@ -159,7 +162,7 @@ The generator stays fully deterministic; the ML just configures it intelligently
 
 A lighter application is behavior prediction: training a small model on the simulation's own output to predict likely ecosystem states several ticks ahead, enabling the system to skip expensive simulation steps for distant or occluded reef sections.
 
- Performance at mobile scale
+### Performance at mobile scale
 
 The current system runs on the Unity main thread with no parallelism.
 
@@ -169,7 +172,7 @@ The particle system and LOD pipeline need profiling and budgeting.
 
 The coral agent cap of 500 is conservative — with instanced rendering and GPU-side culling, the visual representation of several thousand coral objects becomes feasible even if the simulation still manages a smaller active population.
 
- What the Prototype Proves
+## What the Prototype Proves
 
 The proof of concept demonstrates three things that matter for the full project.
 
@@ -178,3 +181,13 @@ First, that deterministic seed-based generation works correctly — the same see
 Second, that a rule-based agent simulation can produce emergent ecological behavior — growth cycles, bleaching events, population dynamics — without explicitly scripting any of it.
 
 Third, that the architecture separates concerns cleanly enough that every layer — terrain, placement, simulation, rendering — can be upgraded independently without rebuilding the system.
+
+## Final Note
+
+The placeholder corals will become authored assets and then procedural geometry.
+
+The single chunk will become a streaming world.
+
+The rule-based parameters will be informed by ML.
+
+The basic URP mesh will become a full underwater rendering pipeline.
