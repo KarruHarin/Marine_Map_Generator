@@ -94,7 +94,6 @@ These blooms cause population spikes followed by competition pressure, which the
 
 The system cycles through this naturally without any explicit scripting of the cycle — it emerges from the rules.
 
-![Simulation View](./images/simulation_view.png)
 
 ---
 
