@@ -6,6 +6,8 @@ The proof of concept implements a fully seeded, deterministic coral reef simulat
 
 What exists now is a prototype that already does more than most procedural systems at this stage, while being honest about what is placeholder and what is production-ready.
 
+demo video : https://youtu.be/6LtX9SqnIPY
+
 ![Reef Overview](./imagee.png)
 
 ---
