@@ -24,7 +24,7 @@ This non-linear shaping is important — it lets you flatten the abyssal plains 
 
 LOD is already wired in, with mesh simplification incrementing based on distance, even though the system currently generates a single fixed chunk. That LOD infrastructure is the hook for the streaming world expansion later.
 
-![Terrain Generation](./images/terrain_generation.png)
+![Terrain Generation](./interface.png)
 
 ---
 
@@ -58,7 +58,7 @@ This was an intentional decision: getting the simulation correct matters far mor
 
 You cannot retrofit biologically plausible behavior onto pretty meshes after the fact, but you absolutely can swap placeholder geometry for Blender-authored coral models once the system underneath is solid.
 
-![Coral Placement Settings](./images/coral_placement.png)
+![Coral Placement Settings](./coral_input.png)
 
 ---
 
