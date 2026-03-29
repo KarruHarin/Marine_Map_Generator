@@ -210,3 +210,9 @@ The single chunk will become a streaming world.
 The rule-based parameters will be informed by ML.
 
 The basic URP mesh will become a full underwater rendering pipeline.
+
+One aspect I find interesting is the possibility of making the system modular, so that different components such as terrain generation, placement logic, and simulation rules can be extended or reused independently. This could make it easier to experiment with different types of environments beyond marine ecosystems in the future.
+
+I also believe there is potential to expose certain parameters in a controlled way, allowing users or developers to explore how changes in rules affect the generated environment. This could make the system not only a visual tool but also a learning and experimentation platform.
+
+I am open to feedback on both the scope and implementation approach, and I am willing to adapt the design based on what is most valuable for the project.
